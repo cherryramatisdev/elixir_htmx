@@ -1,5 +1,10 @@
 <div>
-  <h1>Todo application (because why not)</h1>
-
-  <button>teste</button>
+  <h1>Todos list</h1>
+  <ul>
+    <%= for item <- @todos do %>
+      <li>
+        <%= item.title %>
+      </li>
+    <% end %>
+  </ul>
 </div>

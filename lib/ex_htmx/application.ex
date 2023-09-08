@@ -8,7 +8,8 @@ defmodule ExHtmx.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Plug.Cowboy, scheme: :http, plug: ExHtmx.Router, options: [port: 4000]}
+      {Plug.Cowboy, scheme: :http, plug: ExHtmx.Router, options: [port: 4000]},
+      ExHtmx.Repos.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

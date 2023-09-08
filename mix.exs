@@ -22,7 +22,9 @@ defmodule ExHtmx.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:plug_cowboy, "~> 2.6"}
+      {:plug_cowboy, "~> 2.6"},
+      {:ecto, "~> 3.10"},
+      {:ecto_sqlite3, "~> 0.11"}
     ]
   end
 end
