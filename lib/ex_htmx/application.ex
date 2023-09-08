@@ -8,8 +8,7 @@ defmodule ExHtmx.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: ExHtmx.Worker.start_link(arg)
-      # {ExHtmx.Worker, arg}
+      {Plug.Cowboy, scheme: :http, plug: ExHtmx.Router, options: [port: 4000]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
