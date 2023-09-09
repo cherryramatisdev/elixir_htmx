@@ -1,0 +1,3 @@
+<li>
+  <%= @todo.title %>
+</li>

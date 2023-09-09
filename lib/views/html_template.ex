@@ -8,12 +8,16 @@ defmodule ExHtmx.HTMLTemplate do
 
   ## For example:
 
-    ExHtmx.HTMLTemplate.render("repository/show.html.eex") #= This will be used as lib/templates/repository/show.html.eex
+    ExHtmx.HTMLTemplate.render_file("repository/show.html.eex") #= This will be used as lib/templates/repository/show.html.eex
   """
-  @spec render(String.t(), map()) :: String.t()
-  def render(view_path, assigns \\ []) do
+  @spec render_file(String.t(), map()) :: String.t()
+  def render_file(view_path, assigns \\ []) do
     template_content = eval_file("lib/templates/" <> view_path, assigns: assigns)
 
     eval_file("lib/templates/application.html.eex", assigns: [content: template_content])
   end
+
+  
+  @spec render_string(String.t(), map()) :: String.t()
+  def render_string(view_content, assigns \\ []), do: eval_string(view_content, assigns: assigns)
 end

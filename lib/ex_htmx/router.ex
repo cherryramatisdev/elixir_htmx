@@ -13,10 +13,27 @@ defmodule ExHtmx.Router do
   # Dispatch the connection to the matched handler
   plug(:dispatch)
 
+  plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
+
   get "/" do
     conn
     |> put_resp_content_type("text/html")
-    |> Controllers.Index.call
+    |> Controllers.ListTodos.call()
+  end
+
+  post "/todo" do
+    {:ok, body, _} = Plug.Conn.read_body(conn)
+    body = URI.decode_query(body)
+
+    conn
+    |> put_resp_content_type("text/html")
+    |> Controllers.CreateTodo.call(body)
+  end
+
+  post "/todo/toggle/:id" do
+    conn
+    |> put_resp_content_type("text/html")
+    |> Controllers.ToggleTodoDone.call()
   end
 
   # Fallback handler when there was no match

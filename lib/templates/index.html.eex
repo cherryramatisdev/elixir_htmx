@@ -1,10 +1,34 @@
 <div>
   <h1>Todos list</h1>
-  <ul>
+
+  <div id="todo_list">
     <%= for item <- @todos do %>
-      <li>
-        <%= item.title %>
-      </li>
+      <div id="todo_item" class="p-2 mb-2 card">
+        <div>
+          <input type="checkbox" <%= if item.done, do: "checked" %> hx-trigger="change" hx-post="/todo/toggle/<%= item.id %>">
+          <b><%= item.title %></b>
+        </div>
+        
+        <p class="mb-0"><%= item.description %></p>
+      </div>
     <% end %>
-  </ul>
+  </div>
+
+  <hr>
+
+  <h1>Add a new todo</h1>
+
+  <form hx-post="/todo" hx-target="#todo_list" hx-swap="beforeend" hx-on::after-request="this.reset()">
+    <fieldset class="form-group">
+      <label for="todo_name">Todo name</label>
+      <input class="form-control" name="todo_name" type="text">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label for="todo_description">Todo description</label>
+      <input class="form-control" name="todo_description" type="text">
+    </fieldset>
+
+    <button class="btn btn-primary mt-2" type="submit">Create new todo</button>
+  </form>
 </div>

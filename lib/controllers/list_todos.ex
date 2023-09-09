@@ -1,4 +1,4 @@
-defmodule ExHtmx.Controllers.Index do
+defmodule ExHtmx.Controllers.ListTodos do
   import Plug.Conn
 
   alias ExHtmx.Repos
@@ -6,6 +6,6 @@ defmodule ExHtmx.Controllers.Index do
 
   def call(conn) do
     todos = Repos.Repo.all(Repos.Todo)
-    send_resp(conn, 200, HTMLTemplate.render("index.html.eex", [todos: todos]))
+    send_resp(conn, 200, HTMLTemplate.render_file("index.html.eex", [todos: todos]))
   end
 end
