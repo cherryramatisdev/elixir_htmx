@@ -3,14 +3,7 @@
 
   <div id="todo_list">
     <%= for item <- @todos do %>
-      <div id="todo_item" class="p-2 mb-2 card">
-        <div>
-          <input type="checkbox" <%= if item.done, do: "checked" %> hx-trigger="change" hx-post="/todo/toggle/<%= item.id %>">
-          <b><%= item.title %></b>
-        </div>
-        
-        <p class="mb-0"><%= item.description %></p>
-      </div>
+      <%= ExHtmx.HTMLTemplate.render_file("_todo_item.html.heex", item: item) %>
     <% end %>
   </div>
 

@@ -1,0 +1,8 @@
+<div id="todo_item" class="p-2 mb-2 card">
+  <div>
+    <input type="checkbox" <%= if @item.done, do: "checked" %> hx-trigger="change" hx-post="/todo/toggle/<%= @item.id %>" hx-swap="outerHTML" hx-target="#todo_list">
+    <b><%= @item.title %></b>
+  </div>
+
+  <p class="mb-0"><%= @item.description %></p>
+</div>

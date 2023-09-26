@@ -5,23 +5,14 @@ defmodule ExHtmx.Controllers.CreateTodo do
   alias ExHtmx.HTMLTemplate
 
   def call(conn, %{"todo_name" => todo_name, "todo_description" => todo_description}) do
-    response = """
-      <div class="p-2 mb-2 card">
-        <div>
-          <input type="checkbox">
-          <b><%= @todo.title %></b>
-        </div>
+    {:ok, todo} =
+      %Repos.Todo{
+        title: todo_name,
+        description: todo_description,
+        done: false
+      }
+      |> Repos.Repo.insert()
 
-        <p class="mb-0"><%= @todo.description %></p>
-      </div>
-    """
-
-    {:ok, todo} = %Repos.Todo{
-      title: todo_name,
-      description: todo_description,
-      done: false,
-    } |> Repos.Repo.insert()
-
-    send_resp(conn, 200, HTMLTemplate.render_string(response, [todo: todo]))
+    send_resp(conn, 200, HTMLTemplate.render_file("_todo_item.html.heex", item: todo))
   end
 end
